@@ -4,7 +4,7 @@
   "description": "rx-node-extra contains additional functionality not contained in the rx-node package, such as \"fromUnpausableStream\".",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha test/spec/api.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,16 @@
   },
   "homepage": "https://github.com/ariutta/rx-node-extra#readme",
   "dependencies": {
-    "rx": "^4.0.7",
-    "rx-node": "^1.0.1"
+    "inquirer": "^0.11.0",
+    "rx-extra": "https://github.com/ariutta/rx-extra",
+    "rx-node": "^1.0.1",
+    "shelly": "0.0.3"
+  },
+  "devDependencies": {
+    "bdd-stdin": "^0.2.0",
+    "chai": "^3.4.1",
+    "loggin": "^3.0.1",
+    "mocha": "^2.3.4",
+    "sinon": "^1.17.2"
   }
 }

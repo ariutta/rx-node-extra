@@ -393,7 +393,6 @@ function runAsk(askOption) {
         return x.value.filepath;
       })
       .map(function(actual, i) {
-        sologger.bind('actual').log(JSON.stringify(actual));
         var expected = _.cloneDeep(askOption.expected[i]);
         return expect(actual).to.deep.equal(expected);
       })
@@ -405,11 +404,6 @@ function runAsk(askOption) {
   });
 }
 
-//runAsk(askOptions[0]);
-//runAsk(askOptions[3]);
-//runAsk(askOptions[4]);
-//runAsk(askOptions[5]);
-//*
 // Run tests
 describe('Public API', function() {
   _.each(askOptions, function(askOption) {
@@ -425,4 +419,3 @@ describe('Public API', function() {
       });
   });
 });
-//*/

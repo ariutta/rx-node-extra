@@ -29,8 +29,7 @@
   "dependencies": {
     "inquirer": "^0.11.0",
     "rx-extra": "https://github.com/ariutta/rx-extra",
-    "rx-node": "^1.0.1",
-    "shelly": "0.0.3"
+    "rx-node": "^1.0.1"
   },
   "devDependencies": {
     "bdd-stdin": "^0.2.0",

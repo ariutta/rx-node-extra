@@ -27,33 +27,51 @@ var askOptions = [{
     filepath: 'b',
     value: 2
   }],
-  prompts: [{
-    type: 'confirm',
-    name: 'prompt1',
-    message: 'Confirm something',
+  getPrompts: function(item) {
+    return [{
+      type: 'confirm',
+      name: 'prompt1',
+      message: 'Confirm something',
     default: true
-  }],
+    }];
+  },
   bddStdinBound: bddStdin.bind(null,
                                  '\n',
                                  'n', '\n',
                                  '\n',
                                  'n', '\n'),
   expected: [[{
-    filepath: 'a',
-    value: 1,
-    prompt1: true
+    value: {
+      filepath: 'a',
+      value: 1
+    },
+    answers: {
+      prompt1: true
+    }
   }, {
-    filepath: 'a',
-    value: 2,
-    prompt1: false
+    value: {
+      filepath: 'a',
+      value: 2
+    },
+    answers: {
+      prompt1: false
+    }
   }], [{
-    filepath: 'b',
-    value: 1,
-    prompt1: true
+    value: {
+      filepath: 'b',
+      value: 1
+    },
+    answers: {
+      prompt1: true
+    }
   }, {
-    filepath: 'b',
-    value: 2,
-    prompt1: false
+    value: {
+      filepath: 'b',
+      value: 2
+    },
+    answers: {
+      prompt1: false
+    }
   }]]
 }, {
   input: [{
@@ -69,17 +87,19 @@ var askOptions = [{
     filepath: 'b',
     value: 2
   }],
-  prompts: [{
-    type: 'confirm',
-    name: 'prompt1',
-    message: 'Confirm something one',
-    default: true
-  }, {
-    type: 'confirm',
-    name: 'prompt2',
-    message: 'Confirm something two',
-    default: true
-  }],
+  getPrompts: function(item) {
+    return [{
+      type: 'confirm',
+      name: 'prompt1',
+      message: 'Confirm something one',
+      default: true
+    }, {
+      type: 'confirm',
+      name: 'prompt2',
+      message: 'Confirm something two',
+      default: true
+    }];
+  },
   bddStdinBound: bddStdin.bind(null,
                                  '\n',
                                  'n', '\n',
@@ -90,38 +110,290 @@ var askOptions = [{
                                  'n', '\n',
                                  '\n'),
   expected: [[{
+    value: {
+      filepath: 'a',
+      value: 1
+    },
+    answers: {
+      prompt1: true,
+      prompt2: false
+    }
+  }, {
+    value: {
+      filepath: 'a',
+      value: 2
+    },
+    answers: {
+      prompt1: false,
+      prompt2: true
+    }
+  }], [{
+    value: {
+      filepath: 'b',
+      value: 1
+    },
+    answers: {
+      prompt1: true,
+      prompt2: false
+    }
+  }, {
+    value: {
+      filepath: 'b',
+      value: 2
+    },
+    answers: {
+      prompt1: false,
+      prompt2: true
+    }
+  }]]
+}, {
+  input: [{
     filepath: 'a',
-    value: 1,
-    prompt1: true,
-    prompt2: false
+    value: 1
   }, {
     filepath: 'a',
-    value: 2,
-    prompt1: false,
-    prompt2: true
+    value: 2
+  }, {
+    filepath: 'b',
+    value: 1
+  }, {
+    filepath: 'b',
+    value: 2
+  }],
+  getPrompts: function(item) {
+    return [{
+      type: 'input',
+      name: 'setValue',
+      message: 'Specify a value for "' + item.filepath + '"',
+      default: item.value
+    }, {
+      type: 'confirm',
+      name: 'save',
+      message: 'Save?',
+      default: true,
+      when: function(answers) {
+        return answers.setValue !== '';
+      }
+    }];
+  },
+  bddStdinBound: bddStdin.bind(null,
+                                 '\n',
+                                 '\n',
+                                 '\n',
+                                 'n', '\n',
+                                 '\n',
+                                 'n', '\n',
+                                 '\n',
+                                 '\n'),
+  expected: [[{
+    value: {
+      filepath: 'a',
+      value: 1
+    },
+    answers: {
+      setValue: 1,
+      save: true
+    }
+  }, {
+    value: {
+      filepath: 'a',
+      value: 2,
+    },
+    answers: {
+      setValue: 2,
+      save: false
+    }
+  }], [{
+    value: {
+      filepath: 'b',
+      value: 1
+    },
+    answers: {
+      setValue: 1,
+      save: false
+    }
+  }, {
+    value: {
+      filepath: 'b',
+      value: 2
+    },
+    answers: {
+      setValue: 2,
+      save: true
+    }
+  }]]
+}, {
+  input: [[{
+    filepath: 'a',
+    value: 1
+  }, {
+    filepath: 'a',
+    value: 2
   }], [{
     filepath: 'b',
-    value: 1,
-    prompt1: true,
-    prompt2: false
+    value: 1
   }, {
     filepath: 'b',
-    value: 2,
-    prompt1: false,
-    prompt2: true
+    value: 2
+  }]],
+  createIterable: function(data) {
+    return data.reduce(function(accumulator, item) {
+      return accumulator.concat(item);
+    }, []);
+  },
+  getPrompts: function(item) {
+    return [{
+      type: 'input',
+      name: 'setValue',
+      message: 'Specify a value for "' + item.filepath + '"',
+      default: item.value
+    }, {
+      type: 'confirm',
+      name: 'save',
+      message: 'Save?',
+      default: true,
+      when: function(answers) {
+        return answers.setValue !== '';
+      }
+    }];
+  },
+  bddStdinBound: bddStdin.bind(null,
+                                 '\n',
+                                 '\n',
+                                 '\n',
+                                 'n', '\n',
+                                 '\n',
+                                 'n', '\n',
+                                 '\n',
+                                 '\n'),
+  expected: [[{
+    value: {
+      filepath: 'a',
+      value: 1
+    },
+    answers: {
+      setValue: 1,
+      save: true
+    }
+  }, {
+    value: {
+      filepath: 'a',
+      value: 2,
+    },
+    answers: {
+      setValue: 2,
+      save: false
+    }
+  }], [{
+    value: {
+      filepath: 'b',
+      value: 1
+    },
+    answers: {
+      setValue: 1,
+      save: false
+    }
+  }, {
+    value: {
+      filepath: 'b',
+      value: 2
+    },
+    answers: {
+      setValue: 2,
+      save: true
+    }
+  }]]
+}, {
+  input: [[{
+    filepath: 'a',
+    value: 1
+  }, {
+    filepath: 'a',
+    value: 2
+  }], [{
+    filepath: 'b',
+    value: 1
+  }, {
+    filepath: 'b',
+    value: 2
+  }]],
+  createIterable: function(data) {
+    return data.reduce(function(accumulator, item) {
+      return accumulator.concat(item);
+    }, []);
+  },
+  getPrompts: function(item) {
+    return [{
+      type: 'input',
+      name: 'setValue',
+      message: 'Specify a value for "' + item.filepath + '"',
+      default: item.value
+    }, {
+      type: 'confirm',
+      name: 'save',
+      message: 'Save?',
+      default: true,
+      when: function(answers) {
+        return answers.setValue !== 'abc';
+      }
+    }];
+  },
+  bddStdinBound: bddStdin.bind(null,
+                                 'abc', '\n', // setValue to 'abc'
+                                 '\n', // setValue to 2
+                                 'n', '\n', // don't save
+                                 '\n', // setValue to 1
+                                 'n', '\n', // don't save
+                                 '\n', // setValue to 2
+                                 '\n'), // save
+  expected: [[{
+    value: {
+      filepath: 'a',
+      value: 1
+    },
+    answers: {
+      setValue: 'abc'
+    }
+  }, {
+    value: {
+      filepath: 'a',
+      value: 2,
+    },
+    answers: {
+      setValue: 2,
+      save: false
+    }
+  }], [{
+    value: {
+      filepath: 'b',
+      value: 1
+    },
+    answers: {
+      setValue: 1,
+      save: false
+    }
+  }, {
+    value: {
+      filepath: 'b',
+      value: 2
+    },
+    answers: {
+      setValue: 2,
+      save: true
+    }
   }]]
 }];
 
-function run(askOption) {
-  var promptCount = askOption.prompts.length;
-  it('should ask with ' + promptCount.toString() + ' prompt(s) for each item', function(done) {
+function runAsk(askOption) {
+  it('should ask for each item', function(done) {
     askOption.bddStdinBound();
     Rx.Observable.from(askOption.input)
-      .ask(askOption.prompts)
+      .ask(askOption.getPrompts, askOption.createIterable)
       .splitOnChange(function(x) {
-        return x.filepath;
+        return x.value.filepath;
       })
       .map(function(actual, i) {
+        sologger.bind('actual').log(JSON.stringify(actual));
         var expected = _.cloneDeep(askOption.expected[i]);
         return expect(actual).to.deep.equal(expected);
       })
@@ -133,10 +405,15 @@ function run(askOption) {
   });
 }
 
+//runAsk(askOptions[0]);
+//runAsk(askOptions[3]);
+//runAsk(askOptions[4]);
+//runAsk(askOptions[5]);
+//*
 // Run tests
 describe('Public API', function() {
   _.each(askOptions, function(askOption) {
-    run(askOption);
+    runAsk(askOption);
   }, this);
 
   it('should spawn child process that echoes "hello world!"', function(done) {
@@ -148,3 +425,4 @@ describe('Public API', function() {
       });
   });
 });
+//*/

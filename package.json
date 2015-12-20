@@ -29,7 +29,7 @@
   "dependencies": {
     "inquirer": "^0.11.0",
     "pretty-error": "^1.2.0",
-    "rx-extra": "https://github.com/ariutta/rx-extra",
+    "rx-extra": "^1.0.0",
     "rx-node": "^1.0.1",
     "verror": "^1.6.0"
   },

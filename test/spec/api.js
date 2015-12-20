@@ -27,7 +27,7 @@ var askOptions = [{
     filepath: 'b',
     value: 2
   }],
-  getPrompts: function(item) {
+  getPromptSet: function(item) {
     return [{
       type: 'confirm',
       name: 'prompt1',
@@ -87,7 +87,7 @@ var askOptions = [{
     filepath: 'b',
     value: 2
   }],
-  getPrompts: function(item) {
+  getPromptSet: function(item) {
     return [{
       type: 'confirm',
       name: 'prompt1',
@@ -160,7 +160,7 @@ var askOptions = [{
     filepath: 'b',
     value: 2
   }],
-  getPrompts: function(item) {
+  getPromptSet: function(item) {
     return [{
       type: 'input',
       name: 'setValue',
@@ -241,7 +241,7 @@ var askOptions = [{
       return accumulator.concat(item);
     }, []);
   },
-  getPrompts: function(item) {
+  getPromptSet: function(item) {
     return [{
       type: 'input',
       name: 'setValue',
@@ -322,7 +322,7 @@ var askOptions = [{
       return accumulator.concat(item);
     }, []);
   },
-  getPrompts: function(item) {
+  getPromptSet: function(item) {
     return [{
       type: 'input',
       name: 'setValue',
@@ -388,7 +388,7 @@ function runAsk(askOption) {
   it('should ask for each item', function(done) {
     askOption.bddStdinBound();
     Rx.Observable.from(askOption.input)
-      .ask(askOption.getPrompts, askOption.createIterable)
+      .ask(askOption.getPromptSet, askOption.createIterable)
       .splitOnChange(function(x) {
         return x.value.filepath;
       })

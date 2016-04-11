@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/ariutta/rx-node-extra#readme",
   "dependencies": {
+    "@rxjs/rx": "^4.1.0",
     "inquirer": "^0.11.0",
     "pretty-error": "^1.2.0",
     "rx-extra": "^1.0.2",
@@ -35,9 +36,9 @@
   },
   "devDependencies": {
     "bdd-stdin": "^0.2.0",
-    "chai": "^3.4.1",
+    "chai": "^3.5.0",
     "loggin": "^3.0.1",
     "mocha": "^2.3.4",
-    "sinon": "^1.17.2"
+    "sinon": "^1.17.3"
   }
 }
